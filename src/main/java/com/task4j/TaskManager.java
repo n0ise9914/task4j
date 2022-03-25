@@ -70,6 +70,16 @@ public class TaskManager {
         kill(generateId(name, ids));
     }
 
+    public void killAll(String name) {
+        Set<String> ids = new HashSet<>();
+        tasks.forEach((id, task) -> {
+            if (id.equals(name) || id.startsWith(name + "-")) {
+                ids.add(id);
+            }
+        });
+        ids.forEach(this::kill);
+    }
+
     private void kill(String id) {
         try {
             Optional.ofNullable(tasks.get(id))
