@@ -1,8 +1,5 @@
 package com.task4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.*;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 public class TaskManager {
 
     private final ScheduledThreadPoolExecutor executor;
-    private static final Logger log = LoggerFactory.getLogger(ExceptionUtil.class);
     private final Map<String, Timer> timers;
     private final Map<String, Task> tasks;
     private final Set<String> names;
@@ -89,7 +85,7 @@ public class TaskManager {
                         executor.remove(task);
                     });
         } catch (Exception e) {
-            log.error(ExceptionUtil.simplifyException(e));
+            e.printStackTrace();
         }
     }
 

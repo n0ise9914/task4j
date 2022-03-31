@@ -1,13 +1,9 @@
 package com.task4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.TimerTask;
 
 public abstract class Task extends TimerTask {
 
-    private final Logger log = LoggerFactory.getLogger(Task.class);
     private Integer executionCount = 0;
 
     public Integer getExecutionCount() {
@@ -29,8 +25,12 @@ public abstract class Task extends TimerTask {
         this.onTaskCanceledListener = onTaskCanceledListener;
     }
 
+    private boolean canceled = false;
+
     @Override
     public boolean cancel() {
+        if (canceled) return true;
+        canceled = true;
         boolean result = super.cancel();
         if (onTaskCanceledListener != null) {
             onTaskCanceledListener.OnTaskCanceled();
@@ -44,7 +44,7 @@ public abstract class Task extends TimerTask {
             execute();
             executionCount++;
         } catch (Exception e) {
-            log.error(ExceptionUtil.simplifyException(e));
+            e.printStackTrace();
         }
     }
 
