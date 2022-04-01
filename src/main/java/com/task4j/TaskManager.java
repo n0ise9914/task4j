@@ -89,6 +89,10 @@ public class TaskManager {
         }
     }
 
+    public Set<String> getTaskIds() {
+        return this.tasks.keySet();
+    }
+
     private void schedule(Boolean heavy, String name, Task task, Long delay, Long period, Object... ids) {
         names.add(name);
         task.setOnTaskCanceledListener(() -> kill(task.getId()));
