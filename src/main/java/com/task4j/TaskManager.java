@@ -118,7 +118,7 @@ public class TaskManager {
 
     private Timer getTimer(String name) {
         if (!timers.containsKey(name)) {
-            timers.put(name, new Timer("game.match." + name));
+            timers.put(name, new Timer("task4j." + name));
         }
         return timers.get(name);
     }
