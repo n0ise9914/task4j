@@ -5,13 +5,13 @@ import java.util.TimerTask;
 public abstract class Task extends TimerTask {
 
     private Integer executionCount = 0;
+    private OnTaskCanceledListener onTaskCanceledListener;
+    private String id;
+    private boolean canceled = false;
 
     public Integer getExecutionCount() {
         return executionCount;
     }
-
-    private OnTaskCanceledListener onTaskCanceledListener;
-    private String id;
 
     public String getId() {
         return id;
@@ -24,8 +24,6 @@ public abstract class Task extends TimerTask {
     public void setOnTaskCanceledListener(OnTaskCanceledListener onTaskCanceledListener) {
         this.onTaskCanceledListener = onTaskCanceledListener;
     }
-
-    private boolean canceled = false;
 
     @Override
     public boolean cancel() {
@@ -44,7 +42,7 @@ public abstract class Task extends TimerTask {
             execute();
             executionCount++;
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
