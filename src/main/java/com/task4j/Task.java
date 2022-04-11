@@ -39,6 +39,7 @@ public abstract class Task extends TimerTask {
     @Override
     public void run() {
         try {
+            if (canceled) return;
             execute();
             executionCount++;
         } catch (Exception e) {
