@@ -4,10 +4,10 @@ import java.util.TimerTask;
 
 public abstract class Task extends TimerTask {
 
+    protected boolean canceled = false;
     private Integer executionCount = 0;
     private OnTaskCanceledListener onTaskCanceledListener;
     private String id;
-    private boolean canceled = false;
 
     public Integer getExecutionCount() {
         return executionCount;
