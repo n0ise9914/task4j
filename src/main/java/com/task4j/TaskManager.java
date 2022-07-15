@@ -79,11 +79,11 @@ public class TaskManager {
     private void kill(String id) {
         try {
             Optional.ofNullable(tasks.get(id))
-                    .ifPresent(task -> {
-                        task.cancel();
-                        tasks.remove(id);
-                        executor.remove(task);
-                    });
+                .ifPresent(task -> {
+                    task.cancel();
+                    tasks.remove(id);
+                    executor.remove(task);
+                });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,10 +95,11 @@ public class TaskManager {
 
     private void schedule(Boolean heavy, String name, Task task, Long delay, Long period, Object... ids) {
         names.add(name);
-        task.setOnTaskCanceledListener(() -> kill(task.getId()));
         String id = generateId(name, ids);
         task.setId(id);
         kill(id, ids);
+        task.setOnTaskCanceledListener(() -> kill(task.getId()));
+        task.setOnTaskFinishedListener(() -> tasks.remove(task.getId()));
         tasks.put(id, task);
         if (heavy) {
             if (period == -1) {

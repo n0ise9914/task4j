@@ -7,6 +7,7 @@ public abstract class Task extends TimerTask {
     protected boolean canceled = false;
     private Integer executionCount = 0;
     private OnTaskCanceledListener onTaskCanceledListener;
+    private OnTaskFinishedListener onTaskFinishedListener;
     private String id;
 
     public Integer getExecutionCount() {
@@ -23,6 +24,10 @@ public abstract class Task extends TimerTask {
 
     public void setOnTaskCanceledListener(OnTaskCanceledListener onTaskCanceledListener) {
         this.onTaskCanceledListener = onTaskCanceledListener;
+    }
+
+    public void setOnTaskFinishedListener(OnTaskFinishedListener onTaskFinishedListener) {
+        this.onTaskFinishedListener = onTaskFinishedListener;
     }
 
     @Override
@@ -44,6 +49,8 @@ public abstract class Task extends TimerTask {
             executionCount++;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            onTaskFinishedListener.OnTaskFinished();
         }
     }
 
