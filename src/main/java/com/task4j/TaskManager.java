@@ -24,6 +24,7 @@ public class TaskManager {
         registerIdProvider(Double.class, Object::toString);
         registerIdProvider(Float.class, Object::toString);
         registerIdProvider(Long.class, Object::toString);
+        registerIdProvider(UUID.class, Object::toString);
     }
 
     public void setMaximumPoolSize(int maximumPoolSize) {
@@ -47,6 +48,7 @@ public class TaskManager {
     }
 
     public void execute(String name, Task task, Long delay, Object... idProviders) {
+        task.setExecution(true);
         schedule(false, name, task, delay, -1L, idProviders);
     }
 
@@ -55,6 +57,7 @@ public class TaskManager {
     }
 
     public void executeHeavy(String name, Task task, Long delay, Object... idProviders) {
+        task.setExecution(true);
         schedule(true, name, task, delay, -1L, idProviders);
     }
 

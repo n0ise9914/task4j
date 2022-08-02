@@ -5,6 +5,7 @@ import java.util.TimerTask;
 public abstract class Task extends TimerTask {
 
     protected boolean canceled = false;
+    protected boolean execution = false;
     private Integer executionCount = 0;
     private OnTaskCanceledListener onTaskCanceledListener;
     private OnTaskFinishedListener onTaskFinishedListener;
@@ -50,9 +51,15 @@ public abstract class Task extends TimerTask {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            onTaskFinishedListener.OnTaskFinished();
+            if (execution || canceled) {
+                onTaskFinishedListener.OnTaskFinished();
+            }
         }
     }
 
     public abstract void execute();
+
+    protected void setExecution(boolean execution) {
+        this.execution = execution;
+    }
 }
