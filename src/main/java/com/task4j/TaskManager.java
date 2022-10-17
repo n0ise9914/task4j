@@ -31,6 +31,10 @@ public class TaskManager {
         executor.setMaximumPoolSize(maximumPoolSize);
     }
 
+    public void setCorePoolSize(int corePoolSize) {
+        executor.setCorePoolSize(corePoolSize);
+    }
+
     public void registerIdProvider(Class<?> clazz, IdProvider<?> provider) {
         idProviders.put(clazz, provider);
     }
