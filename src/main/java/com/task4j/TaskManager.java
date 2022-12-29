@@ -27,6 +27,10 @@ public class TaskManager {
         registerIdProvider(UUID.class, Object::toString);
     }
 
+    public ScheduledThreadPoolExecutor getExecutor() {
+        return executor;
+    }
+
     public void setMaximumPoolSize(int maximumPoolSize) {
         executor.setMaximumPoolSize(maximumPoolSize);
     }
