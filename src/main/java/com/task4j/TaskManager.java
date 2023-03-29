@@ -90,11 +90,13 @@ public class TaskManager {
     private void kill(String id) {
         try {
             Optional.ofNullable(tasks.get(id))
-                .ifPresent(task -> {
-                    task.cancel();
-                    tasks.remove(id);
-                    executor.remove(task);
-                });
+                    .ifPresent(task -> {
+                        if (!task.canceled) {
+                            task.cancel();
+                        }
+                        tasks.remove(id);
+                        executor.remove(task);
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
